@@ -5,22 +5,28 @@
 ```
 version: 0.2
 env:
-  # This to use the powershell for codebuild.
-  shell: powershell.exe 
+    variables:
+        publish_artifact: ".\artifact\eShopOnWeb"
+        zip_artifact: ".\artifact\eShopOnWeb.zip"
+    shell: powershell.exe 
 phases:
-build:
-commands:
-- msbuild ./Test.Web./Test.Web.csproj /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:OutDir=\artifacts\ /t:Package -restore
+    install:
+        commands:
+            - Start-BitsTransfer -Source "https://builds.dotnet.microsoft.com/dotnet/Sdk/6.0.428/dotnet-sdk-6.0.428-win-x64.exe" -Destination ".\dotnet-sdk-6.0.428-win-x64.exe"
+            - Start-Process -FilePath ".\dotnet-sdk-6.0.428-win-x64.exe" -ArgumentList "/quiet" -NoNewWindow -Wait
+    build:
+        commands:
+            - cd ProfitCalc.Web
+            - dotnet restore
+            - dotnet build --configuration Release
+            - dotnet publish --configuration Release --output $publish_artifact
+            - Get-ChildItem -Path "$publish_artifact" -Filter "web.config" -Recurse | Remove-Item -Force
+            - Compress-Archive -Path $publish_artifact -DestinationPath $zip_artifact -Update
 artifacts:
-files:
-- \artifacts\_PublishedWebsites\Test.Web\**\*
-- appspec.yml
-- Scripts\**\*
-exclude-paths:
-- \artifacts\_PublishedWebsites\Test.Web\Web.config
-- \artifacts\_PublishedWebsites\Test.Web\Web.Debug.config
-- \artifacts\_PublishedWebsites\Test.Web\Web.Release.config
-
+    files:
+        - .\artifact\*.zip
+        - appspec.yml
+        - scripts\**\*
 ```
 
 ### YALM 2
@@ -69,3 +75,5 @@ winget install Microsoft.DotNet.SDK.9
 Steps to handle dependencies:
 
 Create a scirpt for the deps and put it in the git only.
+
+### Commands ran for the scipt
