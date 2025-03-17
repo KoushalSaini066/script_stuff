@@ -24,9 +24,9 @@ phases:
             - Compress-Archive -Path $publish_artifact -DestinationPath $zip_artifact -Update
 artifacts:
     files:
-        - .\artifact\*.zip
-        - appspec.yml
-        - scripts\**\*
+        - .\ProfitCalc.Web\artifact\*.zip
+        - .\ProfitCalc.Web\appspec.yml
+        - .\ProfitCalc.Web\scripts\**\*
 ```
 
 ### YALM 2
