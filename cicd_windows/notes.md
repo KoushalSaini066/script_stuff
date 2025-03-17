@@ -51,18 +51,17 @@ Repair-WinGetPackageManager
 Write-Host "Installed Winget to Windows."
 ```
 
-- SDK Installation - Available options for the winget to work with supports only .8 and .9 versions
-    - Microsoft.DotNet.Runtime.9—.NET Runtime 9.0
-    - Microsoft.DotNet.AspNetCore.9—ASP.NET Core Runtime 9.0
-    - Microsoft.DotNet.DesktopRuntime.9—.NET Desktop Runtime 9.0
-    - Microsoft.DotNet.SDK.9—.NET SDK 9.0
-    - Microsoft.DotNet.Runtime.8—.NET Runtime 8.0
-    - Microsoft.DotNet.AspNetCore.8—ASP.NET Core Runtime 8.0
-    - Microsoft.DotNet.DesktopRuntime.8—.NET Desktop Runtime 8.0
-    - Microsoft.DotNet.SDK.8—.NET SDK 8.0
+SDK Installation - Available options for the winget to work with supports only .8 and .9 versions
+  - Microsoft.DotNet.Runtime.9—.NET Runtime 9.0
+  - Microsoft.DotNet.AspNetCore.9—ASP.NET Core Runtime 9.0
+  - Microsoft.DotNet.DesktopRuntime.9—.NET Desktop Runtime 9.0
+  - Microsoft.DotNet.SDK.9—.NET SDK 9.0
+  - Microsoft.DotNet.Runtime.8—.NET Runtime 8.0
+  - Microsoft.DotNet.AspNetCore.8—ASP.NET Core Runtime 8.0
+  - Microsoft.DotNet.DesktopRuntime.8—.NET Desktop Runtime 8.0
+  - Microsoft.DotNet.SDK.8—.NET SDK 8.0
 
 Command to install SDK using WinGet.
-
 ```
 winget install Microsoft.DotNet.SDK.9
 ```
