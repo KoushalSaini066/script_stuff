@@ -83,4 +83,11 @@ Steps to handle dependencies:
 
 Create a scirpt for the deps and put it in the git only.
 
-### Commands ran for the scipt
+### Downloading Packages
+
+```powershell
+# Download the Package
+Start-BitsTransfer -Source "https://download.visualstudio.microsoft.com/download/pr/e91a9a25-ec83-4a12-8c15-0b65081b59f5/4e21a057218b753a437bf7bebb7dcbab/dotnet-sdk-9.0.201-win-x64.exe" -Destination ".\dotnet-sdk-9.0.201-win-x64.exe"
+# Install the msixbundle
+Start-Process -FilePath ".\dotnet-sdk-9.0.201-win-x64.exe" -ArgumentList "/quiet" -NoNewWindow -Wait
+```
