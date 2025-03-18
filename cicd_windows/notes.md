@@ -2,7 +2,7 @@
 
 ### YALM 1
 
-```
+```yaml
 version: 0.2
 env:
     variables:
@@ -19,9 +19,13 @@ phases:
             - cd ProfitCalc.Web
             - dotnet restore
             - dotnet build --configuration Release
+            - $publish_artifact=".\artifact\eShopOnWeb"
+            - $zip_artifact=".\artifact\eShopOnWeb.zip"
             - dotnet publish --configuration Release --output $publish_artifact
             - Get-ChildItem -Path "$publish_artifact" -Filter "web.config" -Recurse | Remove-Item -Force
             - Compress-Archive -Path $publish_artifact -DestinationPath $zip_artifact -Update
+            - ls
+            - ls .\artifact
 artifacts:
     files:
         - .\ProfitCalc.Web\artifact\*.zip
@@ -31,18 +35,24 @@ artifacts:
 
 ### YALM 2
 
-```
+```yaml
 version: 0.0
 os: windows
 files:
-  - source: \artifacts\_PublishedWebsites\Test.Web
-    destination: D:\inetpub\wwwroot\Test\
+  - source: \
+    destination: C:\inetpub\deployment\eShopOnWeb
 file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
-    - location: \Scripts\stop-iis-website.ps1
+    - location: \scripts\stop-iis-website.ps1
   AfterInstall:
-    - location: \Scripts\start-iis-website.ps1
+    - location: \scripts\start-iis-website.ps1
+```
+
+### \scripts\stop-iis-website.ps1
+
+```
+
 ```
 
 ### Powershell to install WinGet
