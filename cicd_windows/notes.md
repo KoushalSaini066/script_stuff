@@ -5,9 +5,6 @@
 ```yaml
 version: 0.2
 env:
-    variables:
-        publish_artifact: ".\artifact\eShopOnWeb"
-        zip_artifact: ".\artifact\eShopOnWeb.zip"
     shell: powershell.exe 
 phases:
     install:
@@ -24,13 +21,13 @@ phases:
             - dotnet publish --configuration Release --output $publish_artifact
             - Get-ChildItem -Path "$publish_artifact" -Filter "web.config" -Recurse | Remove-Item -Force
             - Compress-Archive -Path $publish_artifact -DestinationPath $zip_artifact -Update
-            - ls
-            - ls .\artifact
 artifacts:
     files:
         - .\ProfitCalc.Web\artifact\*.zip
         - .\ProfitCalc.Web\appspec.yml
         - .\ProfitCalc.Web\scripts\**\*
+    discard-paths: yes
+
 ```
 
 ### YALM 2
